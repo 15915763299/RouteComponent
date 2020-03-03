@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.demo.module2">
+
+    <!--注册mian中的组件-->
+    <application>
+        <activity android:name=".ActPay" />
+    </application>
+</manifest>

@@ -1,0 +1,31 @@
+ext {
+    // component - application，可以独立打包
+    // module - library，不能独立打包
+    runAsComponent = false
+
+    config = [
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
+            minSdkVersion    : 21,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+    appId = [
+            app    : "com.demo.route",
+            module1: "com.demo.route.module1",
+            module2: "com.demo.route.module2"
+    ]
+
+    version = [
+            ax_appcompat       : "1.1.0",
+            ax_constraintlayout: "1.1.3",
+    ]
+
+    androidX = [
+            appcompat       : "androidx.appcompat:appcompat:$version.ax_appcompat",
+            constraintlayout: "androidx.constraintlayout:constraintlayout:$version.ax_constraintlayout",
+    ]
+
+}

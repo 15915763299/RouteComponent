@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+def ext = rootProject.ext
+def config = ext.config
+
+android {
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
+
+    defaultConfig {
+        applicationId ext.appId.app
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
+
+        // 配置路由参数
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+
+        //配置BuildConfig代码中可以调用判断各模块是否为组件
+        buildConfigField("boolean", "runAsComponent", String.valueOf(runAsComponent))
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation ext.androidX.appcompat
+    implementation ext.androidX.constraintlayout
+
+    // 不作为library的时候不需要导入
+    if (!runAsComponent){
+        implementation project(':module1')
+        implementation project(':module2')
+    }
+
+    implementation project(':router_annotation')
+    implementation project(':router_core')
+    annotationProcessor project(':router_processor')
+}
